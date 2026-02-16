@@ -1,17 +1,17 @@
 provider "aws" {
-    region = "us-east-2"
+    region = "us-east-1"
 }
 
-variable "server_port" {
-  type = number
-  description = "The port the server will use for HTTP requests"
-  default = 8080
-}
+# terraform {
+#     backend "s3" {
+#     bucket = "terraform-up-and-running-1123581321345589"
+#     key = "stage/services/webserver-cluster/terraform.tfstate"
+#     region = "us-east-1"
 
-output "alb_dns_name" {
-    value = aws_lb.example.dns_name
-    description = "The Domain name of the load balancer"
-}
+#     dynamodb_table = "terraform-up-and-running-locks"
+#     encrypt = true
+#     }
+# }
 
 resource "aws_security_group" "instance" {
     name = "terraform-example-instance"
@@ -26,7 +26,7 @@ resource "aws_security_group" "instance" {
 
 resource "aws_launch_template" "example" {
   name_prefix   = "example-"
-  image_id      = "ami-05efc83cb5512477c"
+  image_id      = "ami-0c1fe732b5494dc14"
   instance_type = "t2.micro"
 
   network_interfaces {
